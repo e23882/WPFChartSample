@@ -1,0 +1,60 @@
+﻿<Window x:Class="WPFChart.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:vm="clr-namespace:WPFChart.ViewModel"
+        xmlns:chartTool="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <vm:CartesianChartViewModel x:Key="demo1ViewModel"/>
+        <vm:BarChartViewModel x:Key="barChartViewModel"/>
+    </Window.Resources>
+    <TabControl>
+        <TabItem Header="Demo1">
+            <Grid DataContext="{Binding Source={StaticResource demo1ViewModel}}">
+                <lvc:CartesianChart Series="{Binding Data}" />
+            </Grid>
+        </TabItem>
+        <TabItem Header="Pie">
+            <Grid>
+                <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}">
+                    <lvc:PieChart.Series>
+                        <lvc:PieSeries Title="C#" Values="2" DataLabels="True" PushOut="8" />
+                        <lvc:PieSeries Title="Java" Values="4" DataLabels="True" />
+                        <lvc:PieSeries Title="Python" Values="6" DataLabels="True" />
+                        <lvc:PieSeries Title="SQL" Values="2" DataLabels="True" />
+                    </lvc:PieChart.Series>
+                </lvc:PieChart>  
+            </Grid>
+        </TabItem>
+        <TabItem Header="WPF Tool Kit Chart" DataContext="{Binding Source={StaticResource barChartViewModel}}">
+            <WrapPanel>
+                <chartTool:Chart Height="300" Width="800">
+                    <chartTool:BarSeries DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding DataCollection}"/>
+                </chartTool:Chart>
+                <chartTool:Chart>
+                    <chartTool:ColumnSeries MinHeight="500" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding DataCollection}"/>
+                </chartTool:Chart>
+                <chartTool:Chart>
+                    <chartTool:PieSeries MinHeight="500" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding DataCollection}"/>
+                </chartTool:Chart>
+                <chartTool:Chart>
+                    <chartTool:AreaSeries MinHeight="500" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding DataCollection}"/>
+                </chartTool:Chart>
+                <chartTool:Chart>
+                    <chartTool:BubbleSeries MinHeight="500" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding DataCollection}"/>
+                </chartTool:Chart>
+                <chartTool:Chart>
+                    <chartTool:LineSeries MinHeight="500" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding DataCollection}"/>
+                </chartTool:Chart>
+                <chartTool:Chart>
+                    <chartTool:ScatterSeries MinHeight="500" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding DataCollection}"/>
+                </chartTool:Chart>
+            </WrapPanel>
+            
+        </TabItem>
+    </TabControl>
+</Window>
